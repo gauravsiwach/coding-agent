@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Weather App</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 400px;
+        margin: 50px auto;
+        padding: 20px;
+        background: #f0f8ff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        color: #333;
+        text-align: center;
+      }
+      input[type="text"] {
+        width: calc(100% - 22px);
+        padding: 10px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+      }
+      button {
+        width: 100%;
+        padding: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #0056b3;
+      }
+      #result {
+        margin-top: 20px;
+        font-size: 18px;
+        color: #444;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Get City Temperature</h1>
+    <input type="text" id="city" placeholder="Enter city name" /><button
+      onclick="getTemperature()"
+    >
+      Get Temperature
+    </button>
+    <p id="result"></p>
+    <script>
+      function getTemperature() {
+        var city = document.getElementById("city").value;
+        if (city === "") {
+          alert("Please enter a city name");
+          return;
+        }
+        fetch("https://wttr.in/" + city + "?format=%C+%t")
+          .then((response) => response.text())
+          .then((data) => {
+            document.getElementById("result").innerText =
+              "Weather in " + city + ": " + data;
+          })
+          .catch((error) => {
+            document.getElementById("result").innerText = "Error fetching data";
+          });
+      }
+    </script>
+  </body>
+</html>
